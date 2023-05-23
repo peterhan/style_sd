@@ -17,8 +17,7 @@ if __name__ == '__main__':
     
 from _key_store import SD_API_KEY
 
-class ModelSDText2IMG():
-        
+class ModelSDText2IMG():        
     def prompt2img(self,prompt,para={}):
         url = "https://stablediffusionapi.com/api/v3/text2img"
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
@@ -48,7 +47,7 @@ class ModelSDText2IMG():
           'Content-Type': 'application/json'
         }
         resp = requests.request("POST", url, headers=headers, data=payload)
-
+        
         jo = resp.json()
         js = json.dumps(jo,indent=2)
         logging.debug(js)

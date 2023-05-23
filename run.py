@@ -28,19 +28,27 @@ else:
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write('style api')
+        lst = ['/style_sd/text2img?prompt=asia']
+        html = []
+        for itm in lst:
+            html .append("<a href='{0}'>{0}</a>".format(itm))
+        html = '<br/>'.join(html)
+        self.write(html)
 
 class SDText2IMG(tornado.web.RequestHandler):
     def get(self):
         msdt = ModelSDText2IMG()
         prompt = self.get_argument('prompt').replace(',',' ')
-        ret_eta,ret_url,jo = msdt.prompt2img(prompt)
-        ret_d = {'status':'ok','data':{'eta':ret_eta,'url':ret_url}}
+        try:
+            ret_eta, ret_url, jo = msdt.prompt2img(prompt)
+            ret_d = {'status':'ok', 'data':{'eta':ret_eta, 'url':ret_url}}
+        except:
+            ret_d = {'status':'error', traceback.format_exc()}
         self.write(json.dumps(ret_d))
     
     def post(self,action):
         jo = tornado.escape.json_decode(self.request.body)
-        self.write(''+action)  
+        self.write('' + action)  
     
 if __name__ == "__main__":
     tornado.options.parse_command_line()
