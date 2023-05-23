@@ -51,11 +51,17 @@ class ModelSDText2IMG(object):
         jo = resp.json()
         js = json.dumps(jo,indent=2)
         logging.debug(js)
-        ret_url = jo['output'][0]
         ret_eta = 0
+        ret_url = None
+        if jo.get('status')=='error':
+            raise Exception(jo['message'])
+        if 'output' in jo:
+            ret_url = jo['output'][0]
         if 'eta' in jo:
             ret_eta = math.ceil(float(jo['eta']))       
         return ret_eta,ret_url,jo
         
 if __name__ == '__main__':
-    sdt  = SDText2IMG()
+    sdt  = ModelSDText2IMG()
+    logging.getLogger().setLevel(logging.DEBUG)
+    sdt.prompt2img('usa')
