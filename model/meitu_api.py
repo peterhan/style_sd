@@ -19,12 +19,15 @@ if __name__ == '__main__':
 from _key_store import MT_APPID ,MT_APPKEY ,MT_SECRETID
 
 class ModelMeiTuAPI(object):
+    def __init__(self):
+        self.headers = {'Content-Type':'application/json'}
+        
     def macro_facial_analysis(self,para):
         '''https://ai.meitu.com/doc?id=49&type=api&lang=zh
         '''
         url='https://openapi.mtlab.meitu.com/v2/macro_facial_analysis'
         url +='?api_key=%s&api_secret=%s'%(MT_APPKEY,MT_SECRETID)
-        headers ={'Content-Type':'application/json'}
+        
         confd={
           "media_info_list": [{'media_data':para.get('photo')
                 ,'media_profiles':{'media_data_type':'jpg'}
@@ -35,13 +38,33 @@ class ModelMeiTuAPI(object):
         }
         #confd.update(para)
         payload = json.dumps(confd)
-        resp = requests.request("POST", url, headers=headers, data=payload)
+        resp = requests.request("POST", url, headers=self.headers, data=payload)
         #pdb.set_trace()
+        return resp
+        
+    
+    def body_frame(self,recognize,para):
+        if recognize=='contour':
+            url='https://openapi.mtlab.meitu.com/v1/BodyContour'
+        elif recognize=='pose':
+            url='https://openapi.mtlab.meitu.com/v1/BodyPose'
+        url +='?api_key=%s&api_secret=%s'%(MT_APPKEY,MT_SECRETID)
+        confd={
+          "media_info_list": [{'media_data':para.get('photo')
+                ,'media_profiles':{'media_data_type':'jpg'}
+            }],
+          "parameter": {},
+          "extra": {}          
+        }
+        payload = json.dumps(confd)
+        resp = requests.request("POST", url, headers=self.headers, data=payload)
+        pdb.set_trace()
         return resp
         
 if __name__ == '__main__':
     mta  = ModelMeiTuAPI()
     pb = open('mt_mfa.jpg','rb').read()
-    # pdb.set_trace()
     para={'photo':base64.b64encode(pb)}
-    mta.macro_facial_analysis(para)
+    mta.body_frame(para)
+    # pdb.set_trace()
+    # mta.macro_facial_analysis(para)

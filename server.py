@@ -41,7 +41,13 @@ class IndexHandler(tornado.web.RequestHandler):
     
 class FacialEstimater(tornado.web.RequestHandler):
     def get(self):
-        
+        pass
+    
+    def post(self,action):
+        mmta = ModelMeiTuAPI()
+        jo = tornado.escape.json_decode(self.request.body)
+        resp = mmta.macro_facial_analysis(para = jo)
+        self.write(resp)    
     
 class SDText2IMG(tornado.web.RequestHandler):
     def get(self):
@@ -75,7 +81,7 @@ if __name__ == "__main__":
         handlers=[
             (r"/", IndexHandler),
             (r"/style_sd/text2img", SDText2IMG),
-            (r"/style_sd/macro_facial_analysis", MeiTuAPI),
+            (r"/style_sd/macro_facial_analysis", FacialEstimater),
         ]
         ,debug=True
     )
