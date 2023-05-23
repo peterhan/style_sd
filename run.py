@@ -15,7 +15,8 @@ import tornado.web
 from tornado import gen
 from tornado.options import define, options
 
-from model.sdtext2img import ModelSDText2IMG
+from model.meitu_api import ModelMeiTuAPI
+from model.sd_text2img import ModelSDText2IMG
 
 
 if 'prod' in sys.argv:
@@ -34,7 +35,11 @@ class IndexHandler(tornado.web.RequestHandler):
             html .append("<a href='{0}'>{0}</a>".format(itm))
         html = '<br/>'.join(html)
         self.write(html)
-
+    
+class FacialEstimater(tornado.web.RequestHandler):
+    def get(self):
+        
+    
 class SDText2IMG(tornado.web.RequestHandler):
     def get(self):
         msdt = ModelSDText2IMG()
