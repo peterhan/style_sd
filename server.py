@@ -29,7 +29,10 @@ else:
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        lst = ['/style_sd/text2img?prompt=asia']
+        lst = [
+            '/style_sd/text2img?prompt=asia'
+            ,'/style_sd/macro_facial_analysis'
+        ]
         html = []
         for itm in lst:
             html .append("<a href='{0}'>{0}</a>".format(itm))
@@ -54,13 +57,25 @@ class SDText2IMG(tornado.web.RequestHandler):
     def post(self,action):
         jo = tornado.escape.json_decode(self.request.body)
         self.write('' + action)  
+   
+class MeiTuAPI(tornado.web.RequestHandler):
+    def get(self):
+        self.write('')
     
+    def post(self,action):
+        mmta = ModelMeiTuAPI()
+        jo = tornado.escape.json_decode(self.request.body)
+        resp = mmta.macro_facial_analysis(para = jo)
+        self.write(resp)
+        
+        
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     app = tornado.web.Application(
         handlers=[
             (r"/", IndexHandler),
             (r"/style_sd/text2img", SDText2IMG),
+            (r"/style_sd/macro_facial_analysis", MeiTuAPI),
         ]
         ,debug=True
     )
