@@ -43,11 +43,16 @@ class ModelMeiTuAPI(object):
         return resp
         
     
-    def body_frame(self,recognize,para):
+    def body_recognize(self,recognize,para):
         if recognize=='contour':
             url='https://openapi.mtlab.meitu.com/v1/BodyContour'
         elif recognize=='pose':
             url='https://openapi.mtlab.meitu.com/v1/BodyPose'
+        elif recognize=='apperal':
+            'https://ai.meitu.com/doc?id=85&type=api&lang=zh'
+            url='https://openapi.mtlab.meitu.com/v1/apperal'
+        elif recognize=='ornaments':
+            url='https://openapi.mtlab.meitu.com/v1/Ornaments'
         url +='?api_key=%s&api_secret=%s'%(MT_APPKEY,MT_SECRETID)
         confd={
           "media_info_list": [{'media_data':para.get('photo')
@@ -65,6 +70,6 @@ if __name__ == '__main__':
     mta  = ModelMeiTuAPI()
     pb = open('mt_mfa.jpg','rb').read()
     para={'photo':base64.b64encode(pb)}
-    mta.body_frame(para)
+    mta.body_recognize('apperal',para)
     # pdb.set_trace()
     # mta.macro_facial_analysis(para)
