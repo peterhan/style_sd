@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
 from _key_store import SD_API_KEY
 
-class ModelSDText2IMG():
+class ModelSDText2IMG(object):
     def prompt2img(self,prompt,para={}):
         url = "https://stablediffusionapi.com/api/v3/text2img"
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
@@ -58,4 +58,4 @@ class ModelSDText2IMG():
         return ret_eta,ret_url,jo
         
 if __name__ == '__main__':
-    sdt  = SDText2IMG(None,None)
+    sdt  = SDText2IMG()
