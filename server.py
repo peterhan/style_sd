@@ -16,7 +16,7 @@ from tornado import gen
 from tornado.options import define, options
 
 from model.meitu_api import ModelMeiTuAPI
-from model.sd_text2img import ModelSDText2IMG
+from model.sd_aliyun_text2img import ModelSDText2IMG
 
 
 if 'prod' in sys.argv:
