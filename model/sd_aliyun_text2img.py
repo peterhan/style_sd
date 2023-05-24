@@ -34,7 +34,7 @@ class ModelSDText2IMG(object):
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
         confd= {
          "denoising_strength": 0,
-         "prompt": "puppy dogs", #提示词
+         "prompt": prompt, #提示词
          "negative_prompt": "", #反向提示词
          "seed": -1, #种子，随机数
          "batch_size": 2, #每次张数
