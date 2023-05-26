@@ -7,6 +7,7 @@ import traceback
 import json
 import sys
 import requests
+import base64
 
 import tornado.httpserver
 import tornado.ioloop
@@ -44,25 +45,19 @@ class IndexHandler(tornado.web.RequestHandler):
     <title>Upload</title>
 </head>
 <body>
-    <h1>Upload</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <h1>human score</h1>
+    <form action="/style_sd/mt_facial_analysis" method="post" enctype="multipart/form-data">
         <input type="file" name="file" id="file" />
         <input type="submit" value="upload" />
-    </form>%s
+    </form>
+    <h1>prompt</h1>
+    %s
 </body>
 </html>
         '''%html
         self.write(uhtml)
     
-class FacialEstimater(tornado.web.RequestHandler):
-    def get(self):
-        pass
-    
-    def post(self,action):
-        mmta = ModelMeiTuAPI()
-        jo = tornado.escape.json_decode(self.request.body)
-        resp = mmta.total_process(para = jo)
-        self.write(resp)    
+
     
 class SDText2IMG(tornado.web.RequestHandler):
     def get(self):
@@ -78,18 +73,6 @@ class SDText2IMG(tornado.web.RequestHandler):
     def post(self,action):
         jo = tornado.escape.json_decode(self.request.body)
         self.write('' + action)  
-   
-class MeiTuAPI(tornado.web.RequestHandler):
-    def get(self):
-        self.write('')
-    
-    def post(self,action):
-        mmta = ModelMeiTuAPI()
-        jo = tornado.escape.json_decode(self.request.body)
-        resp = mmta.macro_facial_analysis(para = jo)
-        self.write(resp)
-        
-
 
 # CONST
 MB = 1024 * 1024
@@ -143,6 +126,22 @@ class UploadHandler(tornado.web.RequestHandler):
         self.fp.truncate()
         self.fp.close()
         self.finish('OK')
+
+
+class FacialEstimater(tornado.web.RequestHandler):
+    def get(self):
+        pass
+    
+    def post(self, *args, **kwargs):
+        file1 = self.request.files['file'][0]
+        original_fname = file1['filename']
+        # super().post(self, *args, **kwargs)
+        mmta = ModelMeiTuAPI()
+        body=file1['body']
+        # jo = tornado.escape.json_decode(self.request.body)
+        jo = {'photo':base64.b64encode(body)}
+        resp = mmta.total_process(para = jo)
+        self.write(resp)
         
 if __name__ == "__main__":
     tornado.options.parse_command_line()
