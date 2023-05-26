@@ -1,0 +1,4 @@
+tornado==5.1.1
+Pillow==6.0.0
+jsonpath-ng==1.5.3
+requests==2.21.0
