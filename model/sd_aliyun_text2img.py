@@ -7,6 +7,7 @@ from tornado import gen
 from tornado.options import define, options
 import logging
 
+import datetime
 import requests
 import json
 import base64
@@ -32,33 +33,7 @@ class ModelSDText2IMG(object):
     def prompt2img(self,prompt,para={}):
         url = AL_URL        
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
-        confd= {
-         "denoising_strength": 0,
-         "prompt": prompt, #提示词
-         "negative_prompt": "", #反向提示词
-         "seed": -1, #种子，随机数
-         "batch_size": 2, #每次张数
-         "n_iter": 1, #生成批次
-         "steps": 50, #生成步数
-         "cfg_scale": 7, #关键词相关性
-         "width": 512, #宽度
-         "height": 512, #高度
-         "restore_faces": False, #脸部修复
-         "tiling": False, #可平埔
-         "override_settings": {
-             "sd_model_checkpoint" :"wlop-any.ckpt [7331f3bc87]"
-          }, # 一般用于修改本次的生成图片的stable diffusion 模型，用法需保持一致
-           "script_args": [
-              0,
-              True,
-              True,
-              "LoRA",
-              "dingzhenlora_v1(fa7c1732cc95)",
-              1,
-              1
-          ], # 一般用于lora模型或其他插件参数，如示例，我放入了一个lora模型， 1，1为两个权重值，一般只用到前面的权重值1
-         "sampler_index": "Euler" #采样方法
-        }
+        confd={"prompt": "1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses, drinking coffee, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face", "all_prompts": ["1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses, drinking coffee, soft lighting, masterpiece, … face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck", "Steps: 20, Sampler: Euler a, CFG scale: 7, Seed: 2016420300, Size: 512x782, Model hash: f68b37e71f, Model: Taiyi-Stable-Diffusion-1B-Chinese-v0.1"], "styles": ["male"], "job_timestamp": "20230526173704", "clip_skip": 1, "is_using_inpainting_conditioning": False}
         confd.update(para)
         payload = confd
         
@@ -68,18 +43,25 @@ class ModelSDText2IMG(object):
             "Content-Type": "application/json",
             "Authorization": 'Basic %s'%encoded_token
         }
+        logging.info(payload)
+        logging.info(url)
         resp = requests.post(url=url+'/sdapi/v1/txt2img', json=payload, headers=headers)
-        pdb.set_trace()
+        # pdb.set_trace()
         rjo = resp.json()
-        for i in rjo['images']:
-            image = Image.open(io.BytesIO(base64.b64decode(i.split(",", 1)[0])))
+        dt=datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+        ret=[]
+        for i,binimg in enumerate(rjo['images']):
+            image = Image.open(io.BytesIO(base64.b64decode(binimg.split(",", 1)[0])))
             png_payload = {
-                "image": "data:image/png;base64," + i
+                "image": "data:image/png;base64," + binimg
             }
             resp2 = requests.post(url=url+'/sdapi/v1/png-info', json=png_payload, headers=headers)
             pnginfo = PngImagePlugin.PngInfo()
             pnginfo.add_text("parameters", resp2.json().get("info"))
-            image.save('output.png', pnginfo=pnginfo)
+            fname='images/output.%s.%s.png'%(dt,i)            
+            image.save(fname, pnginfo=pnginfo)
+            ret.append({'url':'/'+fname})
+        return ret
    
 
 

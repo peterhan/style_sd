@@ -64,8 +64,8 @@ class SDText2IMG(tornado.web.RequestHandler):
         msdt = ModelSDText2IMG()
         prompt = self.get_argument('prompt').replace(',',' ')
         try:
-            ret_eta, ret_url, jo = msdt.prompt2img(prompt)
-            ret_d = {'status':'ok', 'data':{'eta':ret_eta, 'url':ret_url}}
+            jo = msdt.prompt2img(prompt)
+            ret_d = {'status':'ok', 'data':jo}
         except:
             ret_d = {'status':'error', 'info':traceback.format_exc()}
         self.write(json.dumps(ret_d))
@@ -151,6 +151,7 @@ if __name__ == "__main__":
             (r"/style_sd/text2img", SDText2IMG),
             (r"/style_sd/mt_facial_analysis", FacialEstimater),
             (r"/upload", UploadHandler),
+            (r'/images/(.*)', tornado.web.StaticFileHandler, {'path': './images'})
         ]
         ,debug=True
     )
