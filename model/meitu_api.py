@@ -102,8 +102,8 @@ class ModelMeiTuAPI(object):
         except:
             logging.warn(traceback.format_exc())
             return False
-        w=rect_arr[2]-rect_arr[0]
-        h=rect_arr[3]-rect_arr[1]
+        w=abs(rect_arr[2]-rect_arr[0])
+        h=abs(rect_arr[3]-rect_arr[1])
         rate =  h/w
         return rate
         

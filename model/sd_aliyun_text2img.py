@@ -12,6 +12,7 @@ import requests
 import json
 import base64
 import time
+import traceback
 import pdb
 
 from PIL import Image, PngImagePlugin
@@ -23,6 +24,8 @@ if __name__ == '__main__':
 import io    
 from PIL import Image, PngImagePlugin
 from _key_store import AL_URL,AL_TOKEN
+from _prompt import PROMPT
+
 
 class ModelSDText2IMG(object):
     '''/sdapi/v1/txt2img 文字生图 POST
@@ -30,11 +33,18 @@ class ModelSDText2IMG(object):
     /sdapi/v1/options 获取设置 GET | 更新设置 POST（可用来更新远端的模型）
     /sdapi/v1/sd-models 获取所有的模型 GET
     '''
-    def prompt2img(self,prompt,para={}):
+    def prompt2img(self,para={}):
         url = AL_URL        
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
-        confd={"prompt": "1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses, drinking coffee, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face", "all_prompts": ["1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses, drinking coffee, soft lighting, masterpiece, … face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck", "Steps: 20, Sampler: Euler a, CFG scale: 7, Seed: 2016420300, Size: 512x782, Model hash: f68b37e71f, Model: Taiyi-Stable-Diffusion-1B-Chinese-v0.1"], "styles": ["male"], "job_timestamp": "20230526173704", "clip_skip": 1, "is_using_inpainting_conditioning": False}
-        confd.update(para)
+        confd = para
+        if 'style' in para:
+            k=para['style']
+            logging.info('style :%s',k)
+            if k  not in PROMPT:
+                raise Exception('style not define in _prompt.py')
+            confd=PROMPT.get(k,{})
+            logging.info('confd :%s',confd)
+        
         payload = confd
         
         token = AL_TOKEN
@@ -43,11 +53,15 @@ class ModelSDText2IMG(object):
             "Content-Type": "application/json",
             "Authorization": 'Basic %s'%encoded_token
         }
-        logging.info(payload)
+        logging.info('payload:%s',json.dumps(payload,indent=2))
         logging.info(url)
         resp = requests.post(url=url+'/sdapi/v1/txt2img', json=payload, headers=headers)
         # pdb.set_trace()
-        rjo = resp.json()
+        try:
+            rjo = resp.json()
+        except:
+            print resp.text
+            traceback.print_exc()
         dt=datetime.datetime.now().strftime('%Y%m%d%H%M%S')
         ret=[]
         for i,binimg in enumerate(rjo['images']):
@@ -68,4 +82,5 @@ class ModelSDText2IMG(object):
 if __name__ == '__main__':
     sdt  = ModelSDText2IMG()
     logging.getLogger().setLevel(logging.DEBUG)
-    sdt.prompt2img('usa')
+    sdt.prompt2img({'style':'male_suite'})
+    

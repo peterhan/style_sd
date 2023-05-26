@@ -31,8 +31,10 @@ else:
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         lst = [
-            '/style_sd/text2img?prompt=asia'
-            ,'/style_sd/mt_facial_analysis'
+            '/style_sd/mt_facial_analysis'
+            ,'/style_sd/text2img?prompt=asia'
+            ,'/style_sd/text2img?style=male_suite'
+            ,'/style_sd/text2img?style=female_suite'
         ]
         html = []
         for itm in lst:
@@ -42,7 +44,7 @@ class IndexHandler(tornado.web.RequestHandler):
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload</title>
+    <title>api_index</title>
 </head>
 <body>
     <h1>human score</h1>
@@ -62,9 +64,14 @@ class IndexHandler(tornado.web.RequestHandler):
 class SDText2IMG(tornado.web.RequestHandler):
     def get(self):
         msdt = ModelSDText2IMG()
-        prompt = self.get_argument('prompt').replace(',',' ')
+        para = {}
+        for k in ['prompt','style']:
+            try:
+                para[k] = self.get_argument(k)
+            except:
+                pass
         try:
-            jo = msdt.prompt2img(prompt)
+            jo = msdt.prompt2img(para)
             ret_d = {'status':'ok', 'data':jo}
         except:
             ret_d = {'status':'error', 'info':traceback.format_exc()}
