@@ -28,7 +28,7 @@ class ModelSDText2IMG(object):
         # prompt="handsome chinese male dressed in sport wear sitting in dinning room"
         confd= {"prompt": prompt, "all_prompts": [prompt], "negative_prompt": "", "all_negative_prompts": [""], "seed": 2852570473, "all_seeds": [2852570473], "subseed": 3611650335, "all_subseeds": [3611650335], "subseed_strength": 0, "width": 512, "height": 512, "sampler_name": "Euler a", "cfg_scale": 7, "steps": 20, "batch_size": 1, "restore_faces": False, "face_restoration_model": None, "sd_model_hash": "6ce0161689", "seed_resize_from_w": 0, "seed_resize_from_h": 0, "denoising_strength": None, "extra_generation_params": {}, "index_of_first_image": 0, "infotexts": ["puppy dog\\nSteps: 20, Sampler: Euler a, CFG scale: 7, Seed: 2852570473, Size: 512x512, Model hash: 6ce0161689, Model: v1-5-pruned-emaonly"], "styles": [], "job_timestamp": "20230524061323", "clip_skip": 1, "is_using_inpainting_conditioning": False}
         confd.update(para)
-        payload = json.dumps(confd)
+        payload = confd
         
         token = AL_TOKEN
         encoded_token = base64.b64encode(token.encode("utf-8")).decode("utf-8")
