@@ -139,7 +139,7 @@ mustache_thick 	Object 	"mustache_thick":{"value": 0} 胡子浓密分析结果�
             else:
                 ed = dict([p.split(':') for p in l.strip().replace('代表',':').split('，')])
                 mapd.append(ed)
-        time.sleep(1)
+        time.sleep(0.1)
         # parse('$.').find(mac)[0].value
         brate = self.body_fat_rate(para)
         # pdb.set_trace()
@@ -157,6 +157,7 @@ mustache_thick 	Object 	"mustache_thick":{"value": 0} 胡子浓密分析结果�
             blvl ='fit'
         else:
             blvl ='thin'
+        res['body_fit']=blvl
         print json.dumps(res,ensure_ascii=False).decode('utf8').encode('gbk')
         return res
         
