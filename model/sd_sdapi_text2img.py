@@ -78,7 +78,7 @@ class ModelSDText2IMG(object):
                 for chunk in resp:
                     f.write(chunk)
         
-        ret= {'eta':ret_eta,'url':ret_url,'local_url':fpath}
+        ret= {'eta':ret_eta,'url':ret_url,'local_url':fpath.strip('.')}
         return ret
         
 if __name__ == '__main__':

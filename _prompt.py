@@ -15,7 +15,7 @@ PROMPT['female_suit']='''
 def ui_str_to_payload(ui_str):
     payload={}
     col_name = ['prompt','negative_prompt','misc']
-    
+    payload['negative_prompt']=COMMON_NEG
     for i,l in enumerate(ui_str.strip().splitlines()):
         if l.strip()=='':
             continue
@@ -33,7 +33,7 @@ def ui_str_to_payload(ui_str):
         elif i==1:
             payload['prompt']=l
         elif i==2:
-            payload['negative_prompt']=COMMON_NEG+' '+l.replace('Negative prompt: ','')
+            payload['negative_prompt'] += ' '+l.replace('Negative prompt: ','')
     override_settings = {}
     override_settings["filter_nsfw"] = True
     override_settings["CLIP_stop_at_last_layers"] = 2
