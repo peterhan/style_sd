@@ -156,7 +156,7 @@ class FacialEstimater(tornado.web.RequestHandler):
 if __name__ == "__main__":
     import logging
 
-    logging.basicConfig(level=logging.DEBUG, filename='main.log')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s',filename='main.log')
     logging.debug('startup')
     tornado.options.parse_command_line()
     app = tornado.web.Application(
