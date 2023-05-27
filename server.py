@@ -34,6 +34,9 @@ class IndexHandler(tornado.web.RequestHandler):
             '/style_sd/mt_facial_analysis'
             ,'/style_sd/text2img?prompt=asia'
             ,'/style_sd/text2img?style=male_suit'
+            ,'/style_sd/text2img?style=male_leisure'
+            ,'/style_sd/text2img?style=male_leisure1'
+            ,'/style_sd/text2img?style=male_leisure2'
             ,'/style_sd/text2img?style=female_suit'
         ]
         html = []

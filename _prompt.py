@@ -5,6 +5,15 @@ COMMON_para='Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 2774517884, Size: 
 PROMPT['male_suit']='''
     1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
     '''
+PROMPT['male_leisure']='''
+    1man, 25 years- old, full body, wearing leisure suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
+    '''
+PROMPT['male_leisure1']='''
+    1man, 25 years- old, full body, wearing T-shirt,Jeans, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
+    '''
+PROMPT['male_leisure2']='''
+    1man, 25 years- old, full body, wearing leisure suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
+    '''
 PROMPT['female_suit']='''
     1 female, 25 years- old, full body, wearing long-sleeve white shirt and tie,  standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face   
     '''
