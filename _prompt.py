@@ -12,7 +12,7 @@ PROMPT['male_leisure1']='''
     1man, 25 years- old, full body, wearing T-shirt,Jeans, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
     '''
 PROMPT['male_leisure2']='''
-    1man, 25 years- old, full body, wearing leisure suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
+    1man, 95 years- old, full body, wearing leisure suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
     '''
 PROMPT['female_suit']='''
     1 female, 25 years- old, full body, wearing long-sleeve white shirt and tie,  standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face   
