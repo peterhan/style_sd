@@ -1,15 +1,12 @@
 PROMPT={}
 
 COMMON_NEG='(deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime:1.4), text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck'
+COMMON_para='Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 2774517884, Size: 512x728, Model hash: f68b37e71f, Model: Taiyi-Stable-Diffusion-1B-Chinese-v0.1   ,Face restoration: CodeFormer'
 PROMPT['male_suit']='''
-    1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face
-    #
-    Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 2774517884, Size: 512x728, Model hash: f68b37e71f, Model: Taiyi-Stable-Diffusion-1B-Chinese-v0.1   ,Face restoration: CodeFormer
+    1man, 25 years- old, full body, wearing long-sleeve white shirt and tie, muscular rand black suit, glasses,standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face    
     '''
 PROMPT['female_suit']='''
-    1 female, 25 years- old, full body, wearing long-sleeve white shirt and tie,  standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face
-    
-    Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 2774517884, Size: 512x728, Model hash: f68b37e71f, Model: Taiyi-Stable-Diffusion-1B-Chinese-v0.1   ,Face restoration: CodeFormer
+    1 female, 25 years- old, full body, wearing long-sleeve white shirt and tie,  standing, soft lighting, masterpiece, best quality, 8k uhd, dslr, film grain, Fujifilm XT3 photorealistic painting art by midjourney and greg rutkowski <lora:asianmale_v10:0.6> <lora:uncutPenisLora_v10:0.6>,face   
     '''
 
 def ui_str_to_payload(ui_str):

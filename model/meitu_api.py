@@ -147,7 +147,7 @@ mustache_thick 	Object 	"mustache_thick":{"value": 0} 胡子浓密分析结果�
         for  i, e in enumerate(macv):
             key = flds[i]
             vlu = str(e.value['value'])
-            print key,mapd[i],vlu
+            logging.info('%s,%s,%s', key,mapd[i],vlu)
             res[key]=mapd[i].get(vlu,vlu)
         res['body_hw_rate']='%.4f'%brate
         # if frate<0.
@@ -158,7 +158,7 @@ mustache_thick 	Object 	"mustache_thick":{"value": 0} 胡子浓密分析结果�
         else:
             blvl ='thin'
         res['body_fit']=blvl
-        print json.dumps(res,ensure_ascii=False).decode('utf8').encode('gbk')
+        logging.info( json.dumps(res,ensure_ascii=False) )
         return res
         
         

@@ -18,6 +18,7 @@ if __name__ == '__main__':
     
 from _key_store import SD_API_KEY
 from _prompt import PROMPT
+import webbrowser
 
 class ModelSDText2IMG(object):
     def prompt2img(self,para={}):
@@ -79,6 +80,7 @@ class ModelSDText2IMG(object):
                     f.write(chunk)
         
         ret= {'eta':ret_eta,'url':ret_url,'local_url':fpath.strip('.')}
+        webbrowser.open(ret_url)
         return ret
         
 if __name__ == '__main__':
